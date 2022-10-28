@@ -1,0 +1,51 @@
+{
+    "type": "job",
+    "steps": [
+        {
+            "stepType": "odps",
+            "parameter": {
+                "partition": [
+                    "ds=${bizdate}"
+                ],
+                "datasource": "",
+                "column": [],
+                "emptyAsNull": false,
+                "table": ""
+            },
+            "name": "Reader",
+            "category": "reader"
+        },
+        {
+            "stepType": "odps",
+            "parameter": {
+                "partition": "dt=${bizdate}",
+                "truncate": true,
+                "datasource": "odps_first",
+                "column": [],
+                "emptyAsNull": false,
+                "table": ""
+            },
+            "name": "Writer",
+            "category": "writer"
+        }
+    ],
+    "version": "2.0",
+    "order": {
+        "hops": [
+            {
+                "from": "Reader",
+                "to": "Writer"
+            }
+        ]
+    },
+    "setting": {
+        "errorLimit": {
+            "record": ""
+        },
+        "speed": {
+            "concurrent": 2,
+            "throttle": false,
+            "dmu": 1
+        }
+    }
+}
